@@ -9,7 +9,9 @@ export default function Friends() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!curruser || !curruser.email) return;
+    if (!curruser || !curruser.email) {
+       return
+    }
 
     const fetchFriends = async () => {
       try {
