@@ -4,12 +4,20 @@ import Filter from "./Filter";
 import { db } from "../services/firebaseConfig";
 import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { AuthContext } from "../ContextApi/authcontext";
-
+import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
+  const navigate = useNavigate()
   const { curruser } = useContext(AuthContext);
   const [allusers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+  if(!curruser){
+    navigate("/")
+  }
+  },[curruser])
+
 
   useEffect(() => {
     const fetchUsers = async () => {

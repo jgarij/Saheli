@@ -9,6 +9,11 @@ export default function UserFormData() {
   const [showGoogleLogin, setShowGoogleLogin] = useState(false);
   const navigate = useNavigate();
 
+   useEffect(()=>{
+    navigate("/")
+   },[curruser])
+
+
   const [formData, setFormData] = useState({
     username: "",
     salary: "",

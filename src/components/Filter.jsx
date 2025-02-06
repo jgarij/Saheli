@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-
+import { AuthContext } from "../ContextApi/authcontext";
+import { useNavigate } from "react-router-dom";
 export default function Filter({ onFilter, allUsers, resetFilter }) {
   const [selectedSalary, setSelectedSalary] = useState(0);
   const [maxSalary, setMaxSalary] = useState(0);
-
+  const navigate = useNavigate()
   // Calculate max salary dynamically
+  useEffect(()=>{
+  if(!curruser){
+    navigate("/")
+  }
+  },[curruser])
+
+
   useEffect(() => {
     if (allUsers.length > 0) {
       const highestSalary = Math.max(...allUsers.map(user => user.salary));

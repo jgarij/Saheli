@@ -2,15 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../ContextApi/authcontext";
 import { db } from "../services/firebaseConfig";
 import { collection, query, where, getDocs, or } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export default function Friends() {
   const { curruser } = useContext(AuthContext);
   const [friendsList, setFriendsList] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (!curruser || !curruser.email) {
-       return
+       navigate("/")
     }
 
     const fetchFriends = async () => {

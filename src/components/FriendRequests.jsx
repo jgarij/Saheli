@@ -2,11 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { db } from "../services/firebaseConfig"; 
 import { collection, getDocs, setDocs,doc, updateDoc, deleteDoc } from "firebase/firestore"; 
 import { AuthContext } from "../ContextApi/authcontext";
-
+import { useNavigate } from "react-router-dom";
 export default function FriendRequests() {
   const { curruser } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
+  const navigate = useNavigate()
   useEffect(() => {
+    if(!curruser){
+      navigate("/")
+    }
     const fetchRequests = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "friendRequests"));

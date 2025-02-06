@@ -2,10 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../ContextApi/authcontext";
 import { db } from "../services/firebaseConfig";
 import { doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export default function Notifications() {
   const { friendRequests, curruser, setFriendRequests } = useContext(AuthContext); // Add setFriendRequests
   const [sendersData, setSendersData] = useState({});
+ const navigate = useNavigate()
+  useEffect(()=>{
+if(!curruser){
+    navigate("/")
+}
+  },[curruser])
 
   useEffect(() => {
     const fetchSenderDetails = async () => {
