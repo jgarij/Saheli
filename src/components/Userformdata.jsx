@@ -1,16 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../ContextApi/authcontext";
-
-import GoogleSignin from "../googleOath/Googlelogin";
-
-
 import { doc, setDoc } from "firebase/firestore";
-import {db} from "../services/firebaseConfig"
-
+import { db } from "../services/firebaseConfig";
 
 export default function UserFormData() {
-  const { isLoggedIn, login, curruser, setIsLoggedIn } = useContext(AuthContext); // Add user from context to track login status
+  const { isLoggedIn, login, curruser } = useContext(AuthContext);
   const [showGoogleLogin, setShowGoogleLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -20,7 +15,7 @@ export default function UserFormData() {
     profession: "",
     religion: "",
     location: "",
-    alcholic:"",
+    alcholic: "",
   });
 
   useEffect(() => {
@@ -32,11 +27,10 @@ export default function UserFormData() {
         profession: formData.profession || "",
         religion: formData.religion || "",
         location: formData.location || "",
-        alcholic:formData.alcholic||""
+        alcholic: formData.alcholic || "",
       }));
     }
   }, [isLoggedIn]);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,38 +40,57 @@ export default function UserFormData() {
     }));
   };
 
+  // **Form Validation**
+  const validateForm = () => {
+    const { username, salary, profession, religion, location, alcholic } = formData;
+
+    // Ensure all fields are filled
+    if (!username || !salary || !profession || !religion || !location || !alcholic) {
+      alert("Please fill all the details correctly.");
+      return false;
+    }
+
+    // Ensure salary is a valid integer
+    if (!/^\d+$/.test(salary)) {
+      alert("Salary must be a valid integer.");
+      return false;
+    }
+
+    return true; // Form is valid
+  };
+
   const saveData = async () => {
+    if (!validateForm()) return; // Stop if form is invalid
+
     const docId = Date.now().toString();
 
     try {
       await setDoc(doc(db, "usersdata", curruser.email), {
-        username:formData.username,
-        profile:curruser.picture,
-        salary:formData.salary, 
-        profession:formData.profession,
-        religion:formData.religion,
-        location:formData.location,
-        alcholic:formData.alcholic,
+        username: formData.username,
+        profile: curruser.picture,
+        salary: parseInt(formData.salary), // Ensure it's stored as a number
+        profession: formData.profession,
+        religion: formData.religion,
+        location: formData.location,
+        alcholic: formData.alcholic,
         docId: docId,
       });
 
       console.log("Data saved successfully!");
       navigate("/dashboard");
-    } 
-    catch (error) {
+    } catch (error) {
       console.error("Error saving data:", error);
       alert("Error saving profile data");
     }
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isLoggedIn) {
       setShowGoogleLogin(true);
-      login(); 
+      login();
     } else {
-      saveData(); 
+      saveData();
     }
   };
 
@@ -87,9 +100,6 @@ export default function UserFormData() {
         <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">
           Create Profile
         </h2>
-
-        {/* Show Google Sign-in if user is not logged in */}
-        {/* {showGoogleLogin && !isLoggedIn && <GoogleSignin onSuccess={handleLoginSuccess} />} */}
 
         {!showGoogleLogin && (
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -138,9 +148,9 @@ export default function UserFormData() {
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
-             <input
+            <input
               type="text"
-              placeholder="Like to drink alchohol"
+              placeholder="Like to drink alcohol (Yes/No)"
               name="alcholic"
               value={formData.alcholic}
               onChange={handleChange}

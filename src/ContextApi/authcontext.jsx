@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect } from 'react';
 // import { BrowserRouter as Router } from 'react-router-dom';
 export const AuthContext = createContext();
+import { useNavigate } from 'react-router-dom';
 
 export const AuthProvider = ({ children }) => {
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [curruser, setCurrUser] = useState(null);
 
-
+    // const navigate = useNavigate(); 
   useEffect(() => {
     const userData = localStorage.getItem('curruser');
     const loggedInStatus = localStorage.getItem('isLoggedIn');
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     setCurrUser(userData);
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('curruser', JSON.stringify(userData));
+    
   };
 
 
@@ -31,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     setCurrUser(null);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('curruser');
+    
   };
 
   return (
