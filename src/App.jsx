@@ -11,7 +11,8 @@ import Notfound from './components/Notfound'
 import Navbar from "./components/Navbar"
 import Dashboard from './components/Dashboard';
 import Userformdata from './components/Userformdata'
-
+import Notifications from './components/Notifications';
+import Friends from './components/Friends';
 function App() {
  
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="form" element={<Userformdata />} />
+      <Route path="notifications" element={<Notifications />} />
+      <Route path="friends" element={<Friends />} />
       <Route path="*" element={<Notfound />} />
     </Routes>
 

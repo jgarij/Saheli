@@ -36,7 +36,7 @@ export default function Dashboard() {
     fetchUsers();
   }, [curruser]);
 
-  // Search Functionality (Name, Location, Profession, Religion)
+  // Search Functionality 
   const handleSearch = (query) => {
     if (!query.trim()) {
       setFilteredUsers(allusers);
@@ -85,6 +85,7 @@ export default function Dashboard() {
       await setDoc(requestRef, {
         sender: curruser.email,
         receiver: receiverEmail,
+       
         status: "pending",
         timestamp: new Date(),
       });
@@ -106,16 +107,16 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h2 className="text-4xl font-bold text-center text-blue-600 mb-6">
+      <h3 className="text-2xl font-bold text-center text-blue-600 mb-6">
         Find Your Perfect Dost
-      </h2>
+      </h3>
 
       {/* Search Component */}
       <Search onSearch={handleSearch} />
 
-      {/* Main Layout - 20% Sidebar (Filter) & 80% User Grid */}
+     
       <div className="flex flex-col md:flex-row gap-6 mt-6">
-        {/* Sidebar Filter - 20% */}
+      
         <div className="w-full md:w-1/5 bg-white p-4 rounded-lg shadow-md">
           <Filter 
             onFilter={handleSalaryFilter} 
@@ -124,7 +125,7 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* User Grid - 80% */}
+    
         <div className="w-full md:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
@@ -139,7 +140,7 @@ export default function Dashboard() {
                   <img
                     src={user.profile}
                     alt="Profile"
-                    className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-gray-300 shadow-sm"
+                    className="w-20 h-20 mx-auto mb-4 rounded-full border-2 border-gray-300 shadow-sm"
                   />
                 )}
                 <button
