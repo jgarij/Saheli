@@ -5,8 +5,10 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter  as Router} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-const client_id = "599844288820-9aqeege7tucji5304cdhfck10hdv0s64.apps.googleusercontent.com"
+
 import { AuthProvider } from './ContextApi/authcontext'
+
+const client_id =  import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 
 createRoot(document.getElementById('root')).render(
