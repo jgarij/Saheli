@@ -1,3 +1,4 @@
+
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../ContextApi/authcontext";
@@ -9,9 +10,6 @@ export default function UserFormData() {
   const [showGoogleLogin, setShowGoogleLogin] = useState(false);
   const navigate = useNavigate();
 
-   useEffect(()=>{
-    navigate("/")
-   },[curruser])
 
 
   const [formData, setFormData] = useState({
