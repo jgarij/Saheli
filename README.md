@@ -1,6 +1,6 @@
 //////////////////// Yariya Appp Setup////////////////////
 1. Clone the Repository
-git clone https://github.com/jgarij/your-repo-name.git
+git clone https://github.com/jgarij/https://github.com/jgarij/Saheli.git
 2.cd your-repo-name
 3.npm i
 4.npm run dev
