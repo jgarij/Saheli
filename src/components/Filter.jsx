@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../ContextApi/authcontext";
 import { useNavigate } from "react-router-dom";
 export default function Filter({ onFilter, allUsers, resetFilter }) {
+  const {curruser} = useContext(AuthContext)
   const [selectedSalary, setSelectedSalary] = useState(0);
   const [maxSalary, setMaxSalary] = useState(0);
   const navigate = useNavigate()

@@ -11,7 +11,6 @@ export default function Dashboard() {
   const [allusers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(()=>{
   if(!curruser){
     navigate("/")
