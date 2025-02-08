@@ -8,7 +8,7 @@ import { db } from "../services/firebaseConfig";
 import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 
 export const AuthProvider = ({ children }) => {
-  
+  const[friendcount,setfriendcount]=useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [curruser, setCurrUser] = useState(null);
   const [friendRequests,setFriendRequests] = useState([])
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, curruser, login, logout,friendRequests,setFriendRequests }}>
+    <AuthContext.Provider value={{ isLoggedIn, curruser, login, logout,friendRequests,setFriendRequests,friendcount,setfriendcount }}>
       {children}
     </AuthContext.Provider>
   );

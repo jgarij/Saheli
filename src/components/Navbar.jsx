@@ -3,7 +3,7 @@ import { AuthContext } from "../ContextApi/authcontext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { isLoggedIn, curruser, logout } = useContext(AuthContext);
+  const { isLoggedIn, curruser, logout,friendcount } = useContext(AuthContext);
   const navigate = useNavigate();
 
   function handleNotification() {
@@ -25,9 +25,8 @@ export default function Navbar() {
             className="text-xl hover:scale-110 transition-transform"
             title="Notifications"
           >
-            🔔
+            🔔<span className="text-red-300 text-[11px]">{friendcount}</span>
           </button>
-
          {/* Friend button */}
          <Link to="/friends" className=" text-sm md:text-base font-medium">
            Friends
@@ -35,7 +34,7 @@ export default function Navbar() {
 
           {/* Welcome Message */}
           <Link to="/dashboard" className="text-sm md:text-base font-medium">
-            Welcome, <span className="font-semibold">{curruser.name}</span>
+          Welcome, <span className="font-semibold">{curruser.name.length > 6 ? curruser.name.substring(0, 6) + "..." : curruser.name}</span>
           </Link>
 
           {/* Logout Button */}

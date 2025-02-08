@@ -5,7 +5,7 @@ import { doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function Notifications() {
-  const { friendRequests, curruser, setFriendRequests } = useContext(AuthContext); // Add setFriendRequests
+  const { friendRequests, curruser, setFriendRequests,friendcount,setfriendcount } = useContext(AuthContext); // Add setFriendRequests
   const [sendersData, setSendersData] = useState({});
  const navigate = useNavigate()
   useEffect(()=>{
@@ -28,6 +28,8 @@ if(!curruser){
       }
 
       setSendersData(senderDetails);
+      let c = friendRequests.length;
+      setfriendcount(c)
     };
 
     if (friendRequests.length > 0) {
