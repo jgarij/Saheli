@@ -31,12 +31,19 @@ export default function Navbar() {
         <div className="flex items-center space-x-6">
           {/* Notification Button */}
           <button 
-            onClick={handleNotification} 
-            className="text-xl hover:scale-110 transition-transform"
-            title="Notifications"
-          >
-            🔔<span className="text-red-300 text-[11px]">{friendcount}</span>
-          </button>
+  onClick={handleNotification} 
+  className="relative text-xl hover:scale-110 transition-transform"
+  title="Notifications"
+>
+  🔔
+  {friendcount > 0 && (
+    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">
+      {friendcount}
+    </span>
+  )}
+</button>
+
+
          {/* Friend button */}
          <Link to="/friends" className=" text-sm md:text-base font-medium">
            Friends
