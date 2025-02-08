@@ -1,15 +1,25 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../ContextApi/authcontext";
 import { Link, useNavigate } from "react-router-dom";
-
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../services/firebaseConfig";
 export default function Navbar() {
   const { isLoggedIn, curruser, logout,friendcount } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [userExists, setUserExists] = useState(false);
   function handleNotification() {
     navigate("/notifications");
   }
 
+  useEffect(() => {
+    const checkUserInDatabase = async () => {
+      if (!curruser?.email) return;
+      const userDoc = await getDoc(doc(db, "usersdata", curruser.email));
+      setUserExists(userDoc.exists());
+    };
+    checkUserInDatabase();
+  }, [curruser, db]);
   return (
     <div className="navbar flex justify-between items-center p-4 bg-gray-800 text-white shadow-md">
       {/* Brand Name */}
@@ -33,9 +43,13 @@ export default function Navbar() {
           </Link>
 
           {/* Welcome Message */}
-          <Link to="/dashboard" className="text-sm md:text-base font-medium">
-          Welcome, <span className="font-semibold">{curruser.name.length > 6 ? curruser.name.substring(0, 6) + "..." : curruser.name}</span>
-          </Link>
+
+          <Link to={userExists ? "/dashboard" : "/"} className="text-sm md:text-base font-medium">
+  Welcome,{" "}
+  <span className="font-semibold">
+    {curruser?.name?.length > 6 ? curruser.name.substring(0, 6) + "..." : curruser?.name}
+  </span>
+</Link>
 
           {/* Logout Button */}
           <button

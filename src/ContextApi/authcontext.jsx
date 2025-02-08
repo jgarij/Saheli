@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         const requests = querySnapshot.docs
           .map((doc) => doc.data())
           .filter((req) => req.receiver === curruser.email && req.status === "pending");
-           console.log("friend requests",requests)
+          //  console.log("friend requests",requests)
           setFriendRequests(requests);
       } catch (error) {
         console.error("Error fetching friend requests:", error);
